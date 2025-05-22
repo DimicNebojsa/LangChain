@@ -161,3 +161,41 @@ and we believe thinking beyond ReAct and Tools is key to building future AI.
 
 [3] E. Karpas et al. [MRKL Systems: A Modular, Neuro-Symbolic Architecture That Combines Large Language Models, External Knowledge Sources and Discrete Reasoning](https://arxiv.org/abs/2205.00445) (2022), AI21 Labs
 """
+
+
+article_text2 ="""
+/
+General Probability Theory
+This chapter lays the groundwork by introducing measure-theoretic probability, essential for understanding continuous-time stochastic processes. It covers sigma-algebras, probability measures, random variables, and expectations, providing the mathematical rigor needed for subsequent topics.
+
+Information and Conditioning
+Here, the focus is on filtrations, which model the flow of information over time. The chapter discusses conditional expectations in the context of sigma-algebras, a critical concept for defining martingales and understanding the dynamics of financial markets.
+
+Brownian Motion
+Brownian motion is introduced as a continuous-time stochastic process with stationary, independent increments. The chapter explores its properties, including the Markov and martingale characteristics, and establishes it as a fundamental building block for modeling asset prices.
+
+Stochastic Calculus
+This chapter develops the Itô integral, allowing integration with respect to Brownian motion. It presents Itô's lemma, a pivotal result for finding differential equations satisfied by functions of stochastic processes, and sets the stage for modeling in financial mathematics.
+
+Risk-Neutral Pricing
+The concept of risk-neutral valuation is explored, where asset prices are modeled under a probability measure that neutralizes risk preferences. The chapter discusses the Fundamental Theorems of Asset Pricing and introduces the Black-Scholes-Merton framework for option pricing.
+
+Connections with Partial Differential Equations
+This chapter links stochastic calculus with partial differential equations (PDEs), showing how pricing problems can be formulated as PDEs. The Feynman-Kac theorem is introduced, providing a method to solve certain PDEs using expectations under stochastic processes.
+
+Exotic Options
+The pricing and hedging of exotic options, such as barrier and lookback options, are examined. The chapter demonstrates how these complex derivatives can be analyzed using the tools developed in earlier chapters, including stochastic calculus and PDE methods.
+
+American Derivative Securities
+American options, which can be exercised at any time before expiration, are discussed. The chapter delves into optimal stopping theory and free-boundary problems, providing techniques for valuing these options in a continuous-time setting.
+
+Change of Numéraire
+This chapter introduces the change of numéraire technique, a method for simplifying pricing problems by switching the unit of account. It discusses applications in pricing foreign exchange derivatives and interest rate products.
+
+Term-Structure Models
+Models for the evolution of interest rates over time, such as the Vasicek and Cox-Ingersoll-Ross models, are presented. The chapter also covers the Heath-Jarrow-Morton framework, which models the entire yield curve dynamics.
+
+Introduction to Jump Processes
+The final chapter extends the modeling framework to include jump processes, capturing sudden movements in asset prices. It introduces Poisson processes and jump-diffusion models, enhancing the realism of financial models.
+
+"""

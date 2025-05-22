@@ -171,9 +171,67 @@ chain_three = (
     }
 )
 
-out = chain_three.invoke({"article": article})
-print(out)
+#out = chain_three.invoke({"article": article})
+#print(out)
 
+
+### create image from text
+from langchain_community.utilities.dalle_image_generator import DallEAPIWrapper
+from langchain_core.prompts import PromptTemplate
+
+image_prompt = PromptTemplate(
+    input_variables=["article"],
+    template=(
+        "Generate a prompt with less then 500 characters to generate an image "
+        "based on the following article: {article}"
+    )
+)
+
+from skimage import io
+import matplotlib.pyplot as plt
+from langchain_core.runnables import RunnableLambda
+
+# def generate_and_display_image(image_prompt):
+#     image_url = DallEAPIWrapper().run(image_prompt)
+#     image_data = io.imread(image_url)
+#
+#     # And update the display code to:
+#     plt.imshow(image_data)
+#     plt.axis('off')
+#     plt.show()
+#
+# # we wrap this in a RunnableLambda for use with LCEL
+# image_gen_runnable = RunnableLambda(generate_and_display_image)
+
+
+# chain 4: inputs: article, article_para / outputs: new_suggestion_article
+chain_four = (
+    {"article": lambda x: x["article"]}
+    | image_prompt
+    | llm
+    | (lambda x: x.content)
+    #| image_gen_runnable
+)
+
+
+from article import article_text2
+
+article = article_text2
+
+prompt = chain_four.invoke({"article": article})
+
+import openai
+openai.api_key = os.environ["OPENAI_API_KEY"] ##"your_api_key"
+
+response = openai.images.generate(
+    model="dall-e-3",
+    prompt= prompt,  #"A surreal sunset over futuristic city skyline",
+    size="1024x1024",
+    response_format="url"
+)
+
+image_url = response.data[0].url
+print(image_url)
 
 
 
