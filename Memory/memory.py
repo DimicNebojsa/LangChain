@@ -16,57 +16,57 @@ llm = ChatOpenAI(temperature=0.0, model="gpt-4o-mini")
 
 from langchain.memory import ConversationBufferMemory
 
-memory = ConversationBufferMemory(return_messages=True)
-
-memory.save_context(
-    {"input": "Hi, my name is Josh"},  # user message
-    {"output": "Hey Josh, what's up? I'm an AI model called Zeta."}  # AI response
-)
-memory.save_context(
-    {"input": "I'm researching the different types of conversational memory."},  # user message
-    {"output": "That's interesting, what are some examples?"}  # AI response
-)
-memory.save_context(
-    {"input": "I've been looking at ConversationBufferMemory and ConversationBufferWindowMemory."},  # user message
-    {"output": "That's interesting, what's the difference?"}  # AI response
-)
-memory.save_context(
-    {"input": "Buffer memory just stores the entire conversation, right?"},  # user message
-    {"output": "That makes sense, what about ConversationBufferWindowMemory?"}  # AI response
-)
-memory.save_context(
-    {"input": "Buffer window memory stores the last k messages, dropping the rest."},  # user message
-    {"output": "Very cool!"}  # AI response
-)
-
-
-print(memory.load_memory_variables({}))
-
-
-
-memory = ConversationBufferMemory(return_messages=True)
-
-memory.chat_memory.add_user_message("Hi, my name is Josh")
-memory.chat_memory.add_ai_message("Hey Josh, what's up? I'm an AI model called Zeta.")
-memory.chat_memory.add_user_message("I'm researching the different types of conversational memory.")
-memory.chat_memory.add_ai_message("That's interesting, what are some examples?")
-memory.chat_memory.add_user_message("I've been looking at ConversationBufferMemory and ConversationBufferWindowMemory.")
-memory.chat_memory.add_ai_message("That's interesting, what's the difference?")
-memory.chat_memory.add_user_message("Buffer memory just stores the entire conversation, right?")
-memory.chat_memory.add_ai_message("That makes sense, what about ConversationBufferWindowMemory?")
-memory.chat_memory.add_user_message("Buffer window memory stores the last k messages, dropping the rest.")
-memory.chat_memory.add_ai_message("Very cool!")
-
-memory.load_memory_variables({})
+# memory = ConversationBufferMemory(return_messages=True)
+#
+# memory.save_context(
+#     {"input": "Hi, my name is Josh"},  # user message
+#     {"output": "Hey Josh, what's up? I'm an AI model called Zeta."}  # AI response
+# )
+# memory.save_context(
+#     {"input": "I'm researching the different types of conversational memory."},  # user message
+#     {"output": "That's interesting, what are some examples?"}  # AI response
+# )
+# memory.save_context(
+#     {"input": "I've been looking at ConversationBufferMemory and ConversationBufferWindowMemory."},  # user message
+#     {"output": "That's interesting, what's the difference?"}  # AI response
+# )
+# memory.save_context(
+#     {"input": "Buffer memory just stores the entire conversation, right?"},  # user message
+#     {"output": "That makes sense, what about ConversationBufferWindowMemory?"}  # AI response
+# )
+# memory.save_context(
+#     {"input": "Buffer window memory stores the last k messages, dropping the rest."},  # user message
+#     {"output": "Very cool!"}  # AI response
+# )
+#
+#
+# print(memory.load_memory_variables({}))
+#
+#
+#
+# memory = ConversationBufferMemory(return_messages=True)
+#
+# memory.chat_memory.add_user_message("Hi, my name is Josh")
+# memory.chat_memory.add_ai_message("Hey Josh, what's up? I'm an AI model called Zeta.")
+# memory.chat_memory.add_user_message("I'm researching the different types of conversational memory.")
+# memory.chat_memory.add_ai_message("That's interesting, what are some examples?")
+# memory.chat_memory.add_user_message("I've been looking at ConversationBufferMemory and ConversationBufferWindowMemory.")
+# memory.chat_memory.add_ai_message("That's interesting, what's the difference?")
+# memory.chat_memory.add_user_message("Buffer memory just stores the entire conversation, right?")
+# memory.chat_memory.add_ai_message("That makes sense, what about ConversationBufferWindowMemory?")
+# memory.chat_memory.add_user_message("Buffer window memory stores the last k messages, dropping the rest.")
+# memory.chat_memory.add_ai_message("Very cool!")
+#
+# memory.load_memory_variables({})
 
 
 from langchain.chains import ConversationChain
-
-chain = ConversationChain(
-    llm=llm,
-    memory=memory,
-    verbose=True
-)
+#
+# chain = ConversationChain(
+#     llm=llm,
+#     memory=memory,
+#     verbose=True
+# )
 
 
 #response = chain.invoke({"input": "what is my name again?"})
@@ -89,31 +89,31 @@ prompt_template = ChatPromptTemplate.from_messages([
     MessagesPlaceholder(variable_name="history"),
     HumanMessagePromptTemplate.from_template("{query}"),
 ])
-
+#
 pipeline = prompt_template | llm
-
-from langchain_core.chat_history import InMemoryChatMessageHistory
-
-chat_map = {}
-def get_chat_history(session_id: str) -> InMemoryChatMessageHistory:
-    if session_id not in chat_map:
-        # if session ID doesn't exist, create a new chat history
-        chat_map[session_id] = InMemoryChatMessageHistory()
-    return chat_map[session_id]
-
+#
+#from langchain_core.chat_history import InMemoryChatMessageHistory
+#
+# chat_map = {}
+# def get_chat_history(session_id: str) -> InMemoryChatMessageHistory:
+#     if session_id not in chat_map:
+#         # if session ID doesn't exist, create a new chat history
+#         chat_map[session_id] = InMemoryChatMessageHistory()
+#     return chat_map[session_id]
+#
 from langchain_core.runnables.history import RunnableWithMessageHistory
-
-pipeline_with_history = RunnableWithMessageHistory(
-    pipeline,
-    get_session_history=get_chat_history,
-    input_messages_key="query",
-    history_messages_key="history"
-)
-
-response2  = pipeline_with_history.invoke(
-    {"query": "Hi, my name is Josh"},
-    config={"session_id": "id_123"}
-)
+#
+# pipeline_with_history = RunnableWithMessageHistory(
+#     pipeline,
+#     get_session_history=get_chat_history,
+#     input_messages_key="query",
+#     history_messages_key="history"
+# )
+#
+# response2  = pipeline_with_history.invoke(
+#     {"query": "Hi, my name is Josh"},
+#     config={"session_id": "id_123"}
+# )
 
 #response3  = pipeline_with_history.invoke(
 #    {"query": "Hi, Can you tell me what is my name again?"},
@@ -129,7 +129,7 @@ response2  = pipeline_with_history.invoke(
 
 from langchain.memory import ConversationBufferWindowMemory
 
-memory = ConversationBufferWindowMemory(k=2, return_messages=True)
+memory = ConversationBufferWindowMemory(k=4, return_messages=True)
 
 
 memory.chat_memory.add_user_message("Hi, my name is Josh")
@@ -221,13 +221,13 @@ result5 = pipeline_with_history.invoke(
 
 print(result5)
 
-result6 = pipeline_with_history.invoke(
-    {"query": "Well i am trying to learn about buffer memory in langchain"},
-    config={"configurable": {"session_id": "id_k4", "k": 4}}
-)
-
-print(result6)
-
+# result6 = pipeline_with_history.invoke(
+#     {"query": "Well i am trying to learn about buffer memory in langchain"},
+#     config={"configurable": {"session_id": "id_k4", "k": 4}}
+# )
+#
+# print(result6)
+#
 chat_map["id_k4"].clear()  # clear the history
 
 # manually insert history
@@ -244,5 +244,12 @@ chat_map["id_k4"].add_ai_message("Very cool!")
 
 # if we now view the messages, we'll see that ONLY the last 4 messages are stored
 print(chat_map["id_k4"].messages)
+
+result6 = pipeline_with_history.invoke(
+    {"query": "What is my name again?"},
+    config={"configurable": {"session_id": "id_k4", "k": 4}}
+)
+
+print(result6)
 
 
