@@ -141,6 +141,34 @@ print(result2)
 
 print(chat_map["id_123"].messages)
 
+print('****')
+
+for msg in [
+    "I have been looking at ConversationBufferMemory and ConversationBufferWindowMemory.",
+    "Buffer memory just stores the entire conversation",
+    "Buffer window memory stores the last k messages, dropping the rest."
+]:
+    pipeline_with_history.invoke(
+        {"query": msg},
+        config={"session_id": "id_123", "llm": llm}
+    )
+
+
+print("***************FINAL*****************")
+print(chat_map["id_123"].messages)
+
+
+result3 = pipeline_with_history.invoke(
+    {"query": "What is my name again?"},
+    config={"session_id": "id_123", "llm": llm}
+)
+
+print("--------------")
+
+print(result3)
+
+
+
 
 
 
